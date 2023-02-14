@@ -1,5 +1,4 @@
 import { Diet, Era, Kind } from "./enums";
-import { ArticleAttributes } from "./models/Article";
 
 //Dinosaur
 export interface CreateDinasaur {
