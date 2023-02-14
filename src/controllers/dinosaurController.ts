@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { create, destroy, findAll, findById, update } from "../services/dinosaurServices";
-import { errorMessage } from "../util/errorLogger";
+import { errorMessage, errorJson } from "../util/errorLogger";
 import { toNewDinosaur, toNewUpdateDinosaur } from "../util/validation/dinosaurValidation";
 import { numberValidation } from "../util/validation/_validation";
 import { UpdateDinosaur } from '../types'
@@ -10,7 +10,7 @@ export const findAllDinosaur: RequestHandler = async (_req, res) => {
     const dinos = await findAll()
     res.json(dinos)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -21,7 +21,7 @@ export const createDinosaur: RequestHandler = async (req, res) => {
     const parsedDino = await create(newDino)
     res.json(parsedDino)
   } catch(error){
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -32,7 +32,7 @@ export const findDinosaurById: RequestHandler = async (req, res) => {
     const dino = await findById(id)
     res.json(dino)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -44,7 +44,7 @@ export const updateDinosaur: RequestHandler = async (req, res) => {
     const parsedDino = await update(id, dino)
     res.json(parsedDino)
   } catch (error) {
-    res.status(400).json(errorMessage(error))
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }

@@ -1,7 +1,7 @@
 import { RequestHandler } from "express"
 import { create, destroy, findAll, findById, update } from "../services/articleServices"
 import { UpdateArticle } from "../types"
-import { errorMessage } from "../util/errorLogger"
+import { errorJson, errorMessage } from "../util/errorLogger"
 import { toNewArticle, toNewUpdateArticle } from "../util/validation/articleValidation"
 import { numberValidation } from "../util/validation/_validation"
 
@@ -10,7 +10,7 @@ export const findAllArticle: RequestHandler = async (_req, res) => {
     const article = await findAll()
     res.json(article)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -21,7 +21,7 @@ export const findArticleById: RequestHandler = async (req, res) => {
     const article = await findById(id)
     res.json(article)
   } catch(error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -32,7 +32,7 @@ export const createArticle: RequestHandler = async (req, res) => {
     const parsedArticle = await create(newArticle)
     res.json(parsedArticle)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -44,7 +44,7 @@ export const updateArticle: RequestHandler = async (req, res) => {
     const parsedArticle = await update(id, article)
     res.json(parsedArticle)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -55,7 +55,7 @@ export const deleteArticle: RequestHandler = async (req, res) => {
     const isDeleted = await destroy(id)
     res.json(isDeleted)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }

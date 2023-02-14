@@ -1,7 +1,7 @@
 import { RequestHandler } from "express"
 import { create, destroy, findAll, findById, findBySection, update } from "../services/assetService"
 import { UpdateAsset } from "../types"
-import { errorMessage } from "../util/errorLogger"
+import { errorJson, errorMessage } from "../util/errorLogger"
 import { toNewAsset, toNewUpdateAsset } from "../util/validation/assetValidation"
 import { numberValidation } from "../util/validation/_validation"
 
@@ -10,7 +10,7 @@ export const findAllAsset: RequestHandler = async (_req, res) => {
     const assets = await findAll()
     res.json(assets)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -21,7 +21,7 @@ export const findAssetById: RequestHandler = async (req, res) => {
     const asset = await findById(id)
     res.json(asset)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -32,7 +32,7 @@ export const findAssetBySection: RequestHandler = async (req, res) => {
     const asset = await findBySection(id)
     res.json(asset)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -43,7 +43,7 @@ export const createAsset: RequestHandler = async (req, res) => {
     const parsedAsset = await create(newAsset)
     res.json(parsedAsset)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -55,7 +55,7 @@ export const updateAsset: RequestHandler = async (req, res) => {
     const parsedAsset = await update(id, asset)
     res.json(parsedAsset)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
@@ -66,7 +66,7 @@ export const deleteAsset: RequestHandler = async (req, res) => {
     const isDeleted = await destroy(id)
     res.json(isDeleted)
   } catch (error) {
-    res.sendStatus(400)
+    res.status(400).json(errorJson(error))
     console.error(errorMessage(error))
   }
 }
