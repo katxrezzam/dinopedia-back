@@ -1,4 +1,4 @@
-import { Request, RequestHandler } from "express"
+import { RequestHandler } from "express"
 import { create, destroy, findAll, findById, update } from "../services/articleServices"
 import { UpdateArticle } from "../types"
 import { errorMessage } from "../util/errorLogger"
