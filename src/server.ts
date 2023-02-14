@@ -7,6 +7,9 @@ import routerRoot from './routes/root'
 import routerDinosaur from './routes/dinosaurRouter'
 import { corsOptions } from './lib/cors/corsOption'
 import { initDB } from './db/init'
+import routerArticle from './routes/articleRouter'
+import routerAsset from './routes/assetRouter'
+import routerSection from './routes/sectionRouter'
 
 config()
 const app = express()
@@ -23,6 +26,9 @@ app.use(express.urlencoded( { extended: false } ))
 
 app.use('/',routerRoot)
 app.use(`${APIPATH}/dinosaurs`,routerDinosaur)
+app.use(`${APIPATH}/articles`,routerArticle)
+app.use(`${APIPATH}/assets`,routerAsset)
+app.use(`${APIPATH}/sections`,routerSection)
 //
 app.all('*', (req, res) => {
   res.status(404)
